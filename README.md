@@ -1,2 +1,2 @@
 # poc-pdf-parsing
-pdf parsing utils
+pdf parsing utils for future analyses
