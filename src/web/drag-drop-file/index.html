@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Drag-and-Drop Example</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <body>
+        ...
+        <script src="script-drop.js"></script>
+      </body>
+    <div class="example-parent">
+        <div class="example-origin">
+          <div
+            id="field_todo"
+            class="field"
+          >
+            to do felds here
+          </div>
+        </div>
+      
+        <div
+        id="drop_zone"
+          class="dropzone"
+          ondrop="dropHandler(event);"
+          ondragover="dragOverHandler(event);"
+          ondragleave="dragLeaveHandler(event);"
+        >
+          dropzone - drag one or more files here
+        </div>
+      </div>
+
+      <h2>here future preview of uploaded imgs
+        <ol id="img_list"></ol>
+      </h2>
+  </body>
+</html>
