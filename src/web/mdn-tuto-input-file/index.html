@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<h2>final advanced eg</h2>
+
+<body>
+<form method="post" enctype="multipart/form-data">
+    <div>
+      <label for="image_uploads">Choose images to upload (PNG, JPG)</label>
+      <input
+        type="file"
+        id="image_uploads"
+        name="image_uploads"
+        accept=".jpg, .jpeg, .png"
+        multiple />
+    </div>
+    <div class="preview" id="preview1">
+      <p>No files currently selected for upload</p>
+    </div>
+    <div>
+      <button id="btn">Submit</button>
+    </div>
+    <div id="result"></div>
+  </form>
+  
+  <script src="script.js"></script>
+  </body>
+  
