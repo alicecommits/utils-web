@@ -19,7 +19,9 @@ app.get("/", function (request, response) {
 app.post("/databases", async function (request, response) {
   const pageId = process.env.NOTION_PAGE_ID
   const title = request.body.dbName
+  const descr = request.body.dbDescr
 
+  // complexifying template schema from Notion API demo on purpose
   try {
     const newDb = await notion.databases.create({
       parent: {
@@ -44,42 +46,42 @@ app.post("/databases", async function (request, response) {
         },
         "Description": {
           "rich_text": {}
-      },
-      "In stock": {
-          "checkbox": {}
-      },
-      "Food group": {
-          "select": {
-              "options": [
-                  {
-                      "name": "🥦Vegetable",
-                      "color": "green"
-                  },
-                  {
-                      "name": "🍎Fruit",
-                      "color": "red"
-                  },
-                  {
-                      "name": "💪Protein",
-                      "color": "yellow"
-                  }
-              ]
-          }
-      },
-      "Price": {
-          "number": {
-              "format": "dollar"
-          }
-      },
-      "Last ordered": {
-          "date": {}
-      },
-      "+1": {
-        "people": {}
-      },
-      "Photo": {
-          "files": {}
-      }
+        },
+        "In stock": {
+            "checkbox": {}
+        },
+        "Food group": {
+            "select": {
+                "options": [
+                    {
+                        "name": "🥦Vegetable",
+                        "color": "green"
+                    },
+                    {
+                        "name": "🍎Fruit",
+                        "color": "red"
+                    },
+                    {
+                        "name": "💪Protein",
+                        "color": "yellow"
+                    }
+                ]
+            }
+        },
+        "Price": {
+            "number": {
+                "format": "dollar"
+            }
+        },
+        "Last ordered": {
+            "date": {}
+        },
+        "+1": {
+          "people": {}
+        },
+        "Photo": {
+            "files": {}
+        }
       },
     })
     response.json({ message: "success!", data: newDb })
@@ -90,7 +92,7 @@ app.post("/databases", async function (request, response) {
 
 // Create new page. The database ID is provided in the web form.
 app.post("/pages", async function (request, response) {
-  const { dbID, pageName, header } = request.body
+  const { dbID, pageName, header, dbDescr } = request.body
 
   try {
     const newPage = await notion.pages.create({
@@ -108,6 +110,15 @@ app.post("/pages", async function (request, response) {
             },
           ],
         },
+        "Description": {
+          "rich_text": [
+            {
+              text: {
+                content: dbDescr,
+              },
+            },
+          ]
+        }
       },
       children: [
         {

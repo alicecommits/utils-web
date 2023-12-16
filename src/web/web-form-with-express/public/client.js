@@ -88,8 +88,10 @@ pageForm.onsubmit = async function (event) {
 
   const dbID = event.target.newPageDB.value
   const pageName = event.target.newPageName.value
+  const dbDescr = event.target.dbDescr.value
   const header = event.target.header.value
-  const body = JSON.stringify({ dbID, pageName, header })
+
+  const body = JSON.stringify({ dbID, pageName, header, dbDescr })
 
   const newPageResponse = await fetch("/pages", {
     method: "POST",
