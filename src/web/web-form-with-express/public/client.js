@@ -90,7 +90,7 @@ pageForm.onsubmit = async function (event) {
   const pageName = event.target.newPageName.value
   const recDescr = event.target.recDescr.value
   const recFood = event.target.recFood.value
-  console.log("recFood value looks like: ", recFood)
+  //console.log("recFood value looks like: ", recFood, "of type ", typeof(recFood))
   const header = event.target.header.value
 
   const body = JSON.stringify({ dbID, 
