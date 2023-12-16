@@ -8,8 +8,12 @@ const notion = new Client({ auth: process.env.NOTION_KEY })
 
 // data to feed Notion dB properties of "select" (drop-down) types
 // see notion DB schema below
-require("./dataMaps")
-
+// for now, made it work when the food map is stored in this global object
+const FOODMAPGLOBAL = {
+  "vegetable": "🥦Vegetable",
+  "fruit": "🍎Fruit",
+  "protein": "💪Protein",
+};
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"))
@@ -59,15 +63,15 @@ app.post("/databases", async function (request, response) {
             "select": {
                 "options": [
                     {
-                        "name": "Vegetable",
+                        "name": "🥦Vegetable",
                         "color": "green"
                     },
                     {
-                        "name": "Fruit",
+                        "name": "🍎Fruit",
                         "color": "red"
                     },
                     {
-                        "name": "Protein",
+                        "name": "💪Protein",
                         "color": "yellow"
                     }
                 ]
@@ -95,6 +99,8 @@ app.post("/databases", async function (request, response) {
   }
 })
 
+
+
 // Create new page. The database ID is provided in the web form.
 app.post("/pages", async function (request, response) {
   const { dbID, 
@@ -102,6 +108,8 @@ app.post("/pages", async function (request, response) {
     header, 
     recDescr,
     recFood } = request.body
+    const recFood2send = FOODMAPGLOBAL[recFood] 
+    //console.log("I am here svr side", recFood2send, " of type ", typeof(recFood2send))
 
   try {
     const newPage = await notion.pages.create({
@@ -129,11 +137,7 @@ app.post("/pages", async function (request, response) {
           ]
         },
         "Food group": {
-          "select": [
-            {
-              options: foodMap[recFood],
-            },
-          ]
+          "select": { "name": recFood2send },
         }
       },
       children: [
