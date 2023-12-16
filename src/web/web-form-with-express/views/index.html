@@ -51,14 +51,27 @@
           <td>
             <h3>2. Add a page (= record ) to the database</h3>
             <form id="pageForm">
+
               <label for="newPageDB">Parent DB ID</label>
               <input type="text" id="newPageDB" />
+
               <label for="newPageName">New record name</label>
               <input type="text" id="newPageName" />
-              <label for="dbDescr">Record description</label>
-              <input type="text" id="dbDescr" />     
+
+              <label for="recDescr">Record description</label>
+              <input type="text" id="recDescr" />     
+
+              <label for="recFood">Select a food group</label>
+              <select id="recFood" name="recFood">
+                <option value="vegetable">🥦Vegetable</option>
+                <option value="fruit">🍎Fruit</option>
+                <option value="protein" selected>💪Protein</option>
+              </select>
+
+              <!-- will be used server side to edit the content WITHIN the page -->
               <label for="header">Header 1</label>
               <input type="text" id="header" />
+
               <input type="submit" />
             </form>
           </td>

@@ -6,6 +6,11 @@ const app = express()
 const { Client } = require("@notionhq/client")
 const notion = new Client({ auth: process.env.NOTION_KEY })
 
+// data to feed Notion dB properties of "select" (drop-down) types
+// see notion DB schema below
+require("./dataMaps")
+
+
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"))
 app.use(express.json()) // for parsing application/json
@@ -54,15 +59,15 @@ app.post("/databases", async function (request, response) {
             "select": {
                 "options": [
                     {
-                        "name": "🥦Vegetable",
+                        "name": "Vegetable",
                         "color": "green"
                     },
                     {
-                        "name": "🍎Fruit",
+                        "name": "Fruit",
                         "color": "red"
                     },
                     {
-                        "name": "💪Protein",
+                        "name": "Protein",
                         "color": "yellow"
                     }
                 ]
@@ -92,7 +97,11 @@ app.post("/databases", async function (request, response) {
 
 // Create new page. The database ID is provided in the web form.
 app.post("/pages", async function (request, response) {
-  const { dbID, pageName, header, dbDescr } = request.body
+  const { dbID, 
+    pageName, 
+    header, 
+    recDescr,
+    recFood } = request.body
 
   try {
     const newPage = await notion.pages.create({
@@ -114,8 +123,15 @@ app.post("/pages", async function (request, response) {
           "rich_text": [
             {
               text: {
-                content: dbDescr,
+                content: recDescr,
               },
+            },
+          ]
+        },
+        "Food group": {
+          "select": [
+            {
+              options: foodMap[recFood],
             },
           ]
         }
