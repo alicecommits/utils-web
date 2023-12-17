@@ -106,6 +106,27 @@
           <!-- The comment form response will be appended here after submitting it -->
           <td id="commentResponse"></td>
         </tr>
+        <!-- custom table row and tds for file upload test with showing svr-side.
+        at the time of writing this code Notion API doesn't allow file uploading thru it. -->
+        <tr>
+          <td>
+            <h3>5. Alice's custom file uploading</h3>
+            <!-- todo after - add an input text in the fileForm form below
+            and wrap it up within the request -->
+            <form action="https://httpbin.org/post" id="fileForm" method="post" enctype="multipart/form-data">
+              <label for="myfile">Select a file:</label>
+              <input type="file" id="myfile" name="myfile"><br><br>
+              <button type="submit">Upload the file</button>
+            </form>
+          </td>
+          <!-- The file upload successful response will be appended here after submitting it -->
+          <td id="fileResponse">
+            <p>
+            <strong>Uploading status:</strong>
+            <span id="statusMessage">🤷‍♂ Nothing's uploaded</span>
+          </p>
+        </td>
+        </tr>
       </table>
     </main>
   </body>
