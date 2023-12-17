@@ -1,7 +1,14 @@
 //ALICE MODIF
 require("dotenv").config()
 const express = require("express")
+const cors = require('cors')
+const multer  = require('multer')
+const upload = multer()
+
 const app = express()
+
+const PORT = 3001;
+//const PORT = process.env.PORT to use sth else than 3001
 
 const { Client } = require("@notionhq/client")
 const notion = new Client({ auth: process.env.NOTION_KEY })
@@ -18,6 +25,8 @@ const FOODMAPGLOBAL = {
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"))
 app.use(express.json()) // for parsing application/json
+
+app.use(cors())
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (request, response) {
@@ -212,14 +221,7 @@ app.post("/comments", async function (request, response) {
   }
 })
 
-/*
-// Custom non-Notion API endpoint for file upload
-app.post("/files", async function (request, response) {
-  
-})
-*/
-
 // listen for requests :)
-const listener = app.listen(process.env.PORT, function () {
-  console.log("Your app is listening on port " + listener.address().port)
+const listener = app.listen(PORT, function () {
+  console.log("Your refreshed app is listening on port " + listener.address().port)
 })

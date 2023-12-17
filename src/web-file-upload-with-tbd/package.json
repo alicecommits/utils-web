@@ -4,12 +4,15 @@
   "description": "Internal Notion intergration demo app using Express.js for a server.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "dependencies": {
     "@notionhq/client": "^2.2.7",
+    "axios": "^1.6.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1"
   },
   "engines": {
     "node": "^14 || ^18"
@@ -27,5 +30,8 @@
     "node",
     "notion",
     "express"
-  ]
+  ],
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
 }

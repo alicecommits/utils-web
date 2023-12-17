@@ -1,0 +1,37 @@
+{
+  "name": "web-form-with-express-example",
+  "version": "1.0.0",
+  "description": "Internal Notion intergration demo app using Express.js for a server.",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "@notionhq/client": "^2.2.7",
+    "axios": "^1.6.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1"
+  },
+  "engines": {
+    "node": "^14 || ^18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/makenotion/notion-sdk-js.git"
+  },
+  "author": "Jess Mitchell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/makenotion/notion-sdk-js/issues"
+  },
+  "keywords": [
+    "node",
+    "notion",
+    "express"
+  ],
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
