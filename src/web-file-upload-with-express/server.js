@@ -40,15 +40,18 @@ app.get("/", function (request, response) {
 // Custom File API endpoint for file upload and observe server-side
 app.post('/upload-single-file', upload.single('fileInput'), function (req, res, next) {
   try {
-    // req.file is the `file` file
-    console.log(`svr msg - file has saved on svr and can be used further.`)
+    
 
     // here processing towards 3rd party API
+    const description = req.body.myFileDescr
 
+    // req.file is the `file` file
+    console.log(`svr msg - file descri "${description}" has saved on svr.`)
 
     // response to send back to client (and to append to HTML UI TODO)
     res.json({ message: "successful file upload!", 
     data: req.file,
+    description: description,
     url: `http://localhost:${PORT}/${req.file.originalname}`})
 
   } catch (error) {
