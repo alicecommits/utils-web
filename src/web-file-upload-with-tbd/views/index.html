@@ -7,12 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Notion internal integration example" />
 
-    <title>Notion integration demo</title>
+    <title>File upload with svr demo</title>
     <!-- import the webpage's stylesheet -->
     <link rel="stylesheet" href="/style.css" />
 
     <!-- import the webpage's client-side javascript file -->
     <script src="/client.js" defer></script>
+    <!-- import the axios browser-side -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <header>
@@ -43,8 +45,9 @@
           <td>
             <h3>Alice's custom file uploading</h3>
             <!-- todo after - add an input text in the fileForm form below
-            and wrap it up within the request - action="https://httpbin.org/post"-->
-            <form id="fileForm" method="post" enccdctype="multipart/form-data">
+            and wrap it up within the request 
+            - action=endpoint is nnot set here but managed in client.js instead -->
+            <form id="fileForm" method="post" enctype="multipart/form-data">
               <label for="myfile">Select a file:</label>
               <input type="file" id="fileInput" name="fileInput"/><br><br>
               <button type="submit">Upload the file</button>
