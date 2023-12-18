@@ -34,6 +34,11 @@ fileForm.onsubmit = async function (event) {
   })
   console.log("resp from svr: ", newFileReponse.data, " - find the file at: ", newFileReponse.data.url)
 
+
+}
+
+/*
+Old attempt with fetch
   /*
   const newFileResponse = await fetch(DUMMY_URL, {
     method: "POST",
@@ -43,46 +48,7 @@ fileForm.onsubmit = async function (event) {
   // console logging client side
   console.log("resp from svr: ", newFileResponse)
   */
-}
 
-
-
-/*
-submitButton.onsubmit = () => {
-  //event.preventDefault()
-
-  // capture file
-  let fileElement = document.getElementsByName("fileInput")
-  console.log('fileElt captured OK client side: ', fileElement)
-  //let fileForm = document.getElementById("fileForm")
-  // TODO capture file info
-
-  // check if user had selected a file
-  if (fileElement.files.length === 0) {
-    alert('please choose a file')
-    return
-  }
-
-  // packaging the uploaded file into FormData format
-  let formData = new FormData()
-  formData.set('fileField', fileElement)
-
-
-  axios.post(DUMMY_URL, formData, {
-        onUploadProgress: progressEvent => {
-          const percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          )
-          console.log(`upload process: ${percentCompleted}%`)
-        }
-      })
-        .then(res => {
-          console.log(res.data)
-          console.log(res.data.url)
-        })
-
-}
-*/
 
 /*
 // interactions with file upload status
