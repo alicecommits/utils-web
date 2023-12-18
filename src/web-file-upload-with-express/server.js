@@ -17,6 +17,13 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+// TO TRY HERE - INDEPENDENT 'MICRO DB' LOADED INTO SVR FILE
+const FOODMAP4UUPLOADGLOBAL = {
+  "vegetable": "🥦Actually a landscape",
+  "fruit": "🍎Fruit",
+  "protein": "💪Protein",
+};
+
 // axios svr side with Node
 //const axios = require('axios'); // svr side require for req to 3rd party
 
@@ -42,8 +49,13 @@ app.post('/upload-single-file', upload.single('fileInput'), function (req, res, 
   try {
     
 
-    // here processing towards 3rd party API
+    // here retrieving informative fields against the file
     const description = req.body.myFileDescr
+    const fileCat = req.body.myFileCat
+    const fileCatVisual = FOODMAP4UUPLOADGLOBAL[fileCat]
+
+    // here processing towards 3rd party API
+
 
     // req.file is the `file` file
     console.log(`svr msg - file descri "${description}" has saved on svr.`)
@@ -52,6 +64,7 @@ app.post('/upload-single-file', upload.single('fileInput'), function (req, res, 
     res.json({ message: "successful file upload!", 
     data: req.file,
     description: description,
+    fileCategory: fileCatVisual,
     url: `http://localhost:${PORT}/${req.file.originalname}`})
 
   } catch (error) {
