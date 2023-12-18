@@ -4,17 +4,13 @@ const DUMMY_URL = "http://localhost:3002/upload-single-file" //3003 for Koa
 // get file Form + its content
 const fileForm = document.getElementById("fileForm")
 
-// file submission and status
-//const submitButton = document.querySelector('button');
-
 //TODO afterwards - custom file upload response in UI
+//const submitButton = document.querySelector('button');
 const statusMessage = document.getElementById('statusMessage')
 const fileResponseEl = document.getElementById("fileResponse")
 
-/**
- * Attach submit event handlers to each form included in /views/index.html
- */
-// Attach submit event to fileForm in the Notion demo style
+// Attach submit event handler (the entire async routine) to fileForm
+// fileForm contains all our file + info filled by the user in /views/index.html
 fileForm.onsubmit = async function (event) {
   event.preventDefault()
 
@@ -23,11 +19,13 @@ fileForm.onsubmit = async function (event) {
   //const body = JSON.stringify({ fileDescr })
   const fileCat = event.target.selectFileCat.value
   
-  //attempt 1 at adding field descri - setter with formData
+  //attempt 1 at adding text fields - set on formData
   formData.set('myFileDescr', fileDescr)
   formData.set('myFileCat', fileCat)
 
-  // attempt with axios
+  // building POST request to server with axios
+  // because apparently axios allows upload progress tracking
+  // where fetch doesn't
   const newFileReponse = await axios.post(DUMMY_URL, formData, {
     onUploadProgress: progressEvent => {
       const percentCompleted = Math.round(
@@ -36,14 +34,13 @@ fileForm.onsubmit = async function (event) {
       console.log(`upload process: ${percentCompleted}%`)
     }
   })
+  
   console.log("resp from svr: ", newFileReponse.data, " - find the file at: ", newFileReponse.data.url)
-
 
 }
 
-
 /*
-// interactions with file upload status
+TODO later - interactions with file upload status + response in UI
 function resetFormState() {
   submitButton.disabled = true;
   updateStatusMessage(`🤷‍♂ Nothing's uploaded`)
