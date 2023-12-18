@@ -3,6 +3,7 @@ require("dotenv").config()
 const express = require("express")
 const cors = require('cors')
 const multer  = require('multer')
+//const axios = require('axios'); // svr side require for req to 3rd party
 
 // code to store the file on disk with multer
 const UPLOAD_DIR = __dirname + "/uploadFiles"
@@ -17,20 +18,17 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// TO TRY HERE - INDEPENDENT 'MICRO DB' LOADED INTO SVR FILE
-const FOODMAP4UUPLOADGLOBAL = {
-  "vegetable": "🥦Actually a landscape",
-  "fruit": "🍎Fruit",
-  "protein": "💪Protein",
-};
-
-// axios svr side with Node
-//const axios = require('axios'); // svr side require for req to 3rd party
-
 const app = express()
 
-const PORT = 3002; // for file upload trials
-//const PORT = process.env.PORT to use sth else than 3000
+const PORT = 3002;
+//const PORT = process.env.PORT // to use other port than always 3002
+
+// objects in dropDownDataMaps file
+// act as local data stores for now
+// lookup will be based on the drop-down value
+// received from the client-side, based on user's selection
+dropDownDataMaps = require("./dropDownDataMaps")
+const foodMap = dropDownDataMaps.foodMap
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"))
@@ -48,13 +46,15 @@ app.get("/", function (request, response) {
 app.post('/upload-single-file', upload.single('fileInput'), function (req, res, next) {
   try {
     
-
     // here retrieving informative fields against the file
     const description = req.body.myFileDescr
     const fileCat = req.body.myFileCat
-    const fileCatVisual = FOODMAP4UUPLOADGLOBAL[fileCat]
+    const fileCatVisual = foodMap[fileCat]
 
-    // here processing towards 3rd party API
+    // here processing towards 3rd party API - axios post req to write
+    // feed the response from 3rd-party svr to this server
+    // then back to our client
+    //TODO
 
 
     // req.file is the `file` file
