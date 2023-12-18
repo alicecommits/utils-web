@@ -1,0 +1,58 @@
+<!-- served from my routes in server.js -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Notion internal integration example" />
+
+    <title>File upload with svr demo</title>
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- import the webpage's client-side javascript file -->
+    <script src="/client.js" defer></script>
+    <!-- import axios client-side via script tag in this HTML file -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Alice's file upload demo - Using Express on Svr-side for now</h1>
+    </header>
+
+    <main>
+      <h2>Goals</h2>
+      <p>
+        Use this demo to see how a file upload cooperation takes place
+        between client and server side</p>
+        <li>Inspired from <a href=https://betterprogramming.pub/a-complete-guide-of-file-uploading-in-javascript-2c29c61336f5>this tutorial</a></li>
+        <li>GH: <a href=https://github.com/BytefishMedium/FileUploading>FileUploading Repo</li></a>
+      </p>
+      <table>
+        <tr>
+          <th>Step</th>
+          <th>Response</th>
+        </tr>
+        <tr>
+          <td>
+            <h3>Alice's custom file uploading</h3>
+            <!-- note: action=endpoint is not set here but in client.js as a global instead -->
+            <form id="fileForm" method="post" enctype="multipart/form-data">
+              <label for="myfile">Select a file:</label>
+              <input type="file" id="fileInput" name="fileInput"/><br><br>
+              <button type="submit">Upload the file</button>
+            </form>
+          </td>
+          <!-- TODO the file upload progress + response will be appended here after submitting it -->
+          <td id="fileResponse">
+            <p>
+            <strong>Uploading status:</strong>
+            <span id="statusMessage">🤷‍♂ Nothing's uploaded</span>
+          </p>
+        </td>
+        </tr>
+      </table>
+    </main>
+  </body>
+</html>
