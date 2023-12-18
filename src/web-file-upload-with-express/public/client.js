@@ -18,16 +18,14 @@ const fileResponseEl = document.getElementById("fileResponse")
 fileForm.onsubmit = async function (event) {
   event.preventDefault()
 
-  /*
-  const dbName = event.target.dbName.value
-  const body = JSON.stringify({ dbName })
-  */
   const formData = new FormData(fileForm)
   const fileDescr = event.target.myFileDescr.value
   //const body = JSON.stringify({ fileDescr })
+  const fileCat = event.target.selectFileCat.value
   
   //attempt 1 at adding field descri - setter with formData
   formData.set('myFileDescr', fileDescr)
+  formData.set('myFileCat', fileCat)
 
   // attempt with axios
   const newFileReponse = await axios.post(DUMMY_URL, formData, {
@@ -42,18 +40,6 @@ fileForm.onsubmit = async function (event) {
 
 
 }
-
-/*
-Old attempt with fetch
-  /*
-  const newFileResponse = await fetch(DUMMY_URL, {
-    method: "POST",
-    body: formData,
-  })
-
-  // console logging client side
-  console.log("resp from svr: ", newFileResponse)
-  */
 
 
 /*
