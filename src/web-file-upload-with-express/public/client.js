@@ -1,8 +1,9 @@
 // This file is run by the browser each time your view template is loaded
 const DUMMY_URL = "http://localhost:3002/upload-single-file" //3003 for Koa
 
-// get file Form
+// get file Form + its content
 const fileForm = document.getElementById("fileForm")
+
 // file submission and status
 //const submitButton = document.querySelector('button');
 
@@ -22,6 +23,11 @@ fileForm.onsubmit = async function (event) {
   const body = JSON.stringify({ dbName })
   */
   const formData = new FormData(fileForm)
+  const fileDescr = event.target.myFileDescr.value
+  //const body = JSON.stringify({ fileDescr })
+  
+  //attempt 1 at adding field descri - setter with formData
+  formData.set('myFileDescr', fileDescr)
 
   // attempt with axios
   const newFileReponse = await axios.post(DUMMY_URL, formData, {
