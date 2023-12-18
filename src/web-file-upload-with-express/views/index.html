@@ -39,7 +39,9 @@
             <h3>Alice's custom file uploading</h3>
             <!-- note: action=endpoint is not set here but in client.js as a global instead -->
             <form id="fileForm" method="post" enctype="multipart/form-data">
-              <label for="myfile">Select a file:</label>
+              <label for="myFileDescr">Describe your file: </label>
+              <input type="text" id="myFileDescr" name="myFileDescr"/>
+              <label for="fileInput">Select a file:</label>
               <input type="file" id="fileInput" name="fileInput"/><br><br>
               <button type="submit">Upload the file</button>
             </form>
