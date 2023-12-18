@@ -1,20 +1,53 @@
-const axios = require('axios')
 // This file is run by the browser each time your view template is loaded
+const DUMMY_URL = "http://localhost:3002/upload-single-file" //3003 for Koa
+
+// get file Form
+const fileForm = document.getElementById("fileForm")
+// file submission and status
+//const submitButton = document.querySelector('button');
+
+//TODO afterwards - custom file upload response in UI
+const statusMessage = document.getElementById('statusMessage')
+const fileResponseEl = document.getElementById("fileResponse")
 
 /**
  * Attach submit event handlers to each form included in /views/index.html
  */
+// Attach submit event to fileForm in the Notion demo style
+fileForm.onsubmit = async function (event) {
+  event.preventDefault()
 
-// Attach submit event to each form
+  /*
+  const dbName = event.target.dbName.value
+  const body = JSON.stringify({ dbName })
+  */
+  const formData = new FormData(fileForm)
 
-// file submission and status
-const submitButton = document.querySelector('button');
+  // attempt with axios
+  const newFileReponse = await axios.post(DUMMY_URL, formData, {
+    onUploadProgress: progressEvent => {
+      const percentCompleted = Math.round(
+        (progressEvent.loaded * 100) / progressEvent.total
+      )
+      console.log(`upload process: ${percentCompleted}%`)
+    }
+  })
+  console.log("resp from svr: ", newFileReponse.data, " - find the file at: ", newFileReponse.data.url)
 
-//custom file upload response
-const statusMessage = document.getElementById('statusMessage');
-const fileResponseEl = document.getElementById("fileResponse")
+  /*
+  const newFileResponse = await fetch(DUMMY_URL, {
+    method: "POST",
+    body: formData,
+  })
+
+  // console logging client side
+  console.log("resp from svr: ", newFileResponse)
+  */
+}
 
 
+
+/*
 submitButton.onsubmit = () => {
   //event.preventDefault()
 
@@ -32,11 +65,10 @@ submitButton.onsubmit = () => {
 
   // packaging the uploaded file into FormData format
   let formData = new FormData()
-  // TO DO capture text fields with it
   formData.set('fileField', fileElement)
 
-  // to do send file info (text) alongside file itself
-  axios.post("http://localhost:3001/upload-single-file", formData, {
+
+  axios.post(DUMMY_URL, formData, {
         onUploadProgress: progressEvent => {
           const percentCompleted = Math.round(
             (progressEvent.loaded * 100) / progressEvent.total
@@ -49,40 +81,6 @@ submitButton.onsubmit = () => {
           console.log(res.data.url)
         })
 
-}
-
-
-/*
-function handleSubmit(event) {
-  event.preventDefault()
-
-  uploadFiles()
-}
-
-// with Fetch API
-function uploadFiles() {
-  const url = 'https://httpbin.org/post'
-  const formData = new FormData(fileForm)
-
-  const fetchOptions = {
-    method: 'post',
-    body: formData
-  }
-
-  fetch(url, fetchOptions);
-}
-
-// with XMLHttpRequest - to enable tracking file upload progress
-function uploadFiles() {
-  const url = 'https://httpbin.org/post';
-  const method = 'post';
-
-  const xhr = new XMLHttpRequest();
-
-  const data = new FormData(fileForm);
-
-  xhr.open(method, url);
-  xhr.send(data);
 }
 */
 
