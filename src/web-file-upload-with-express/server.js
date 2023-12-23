@@ -2,21 +2,13 @@
 require("dotenv").config()
 const express = require("express")
 const cors = require('cors')
-const multer  = require('multer')
+
 //const axios = require('axios'); // svr side require for req to 3rd party
 
-// code to store the file on disk with multer
-const UPLOAD_DIR = __dirname + "/uploadFiles"
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, UPLOAD_DIR);
-  },
-  filename: function (req, file, cb) {
-    cb(null, `${file.originalname}`);
-  },
-});
-const upload = multer({ storage: storage });
+// Require the upload middleware and upload dir
+const uploadModule = require('./upload')
+const upload = uploadModule.upload
+const UPLOAD_DIR = uploadModule.UPLOAD_DIR
 
 const app = express()
 
@@ -51,11 +43,15 @@ app.post('/upload-single-file', upload.single('fileInput'), function (req, res, 
     const fileCat = req.body.myFileCat
     const fileCatVisual = foodMap[fileCat]
 
-    // here processing towards 3rd party API - axios post req to write
-    // feed the response from 3rd-party svr to this server
-    // then back to our client
-    //TODO
+    // demo 1 - post a text file to httpbin.org/post endpoint
 
+
+
+    // demo 2 - since httpbin mirrors what we send,
+    // using WireMockCloud to simulate validating expected formData "schema" on 3rd-party
+
+
+    
 
     // req.file is the `file` file
     console.log(`svr msg - file descri "${description}" has saved on svr.`)
@@ -71,6 +67,9 @@ app.post('/upload-single-file', upload.single('fileInput'), function (req, res, 
     res.json({ message: "error - ", error })
   }
 })
+
+//TODO demo route for multi upload
+//app.post('/upload-multi-files',
 
 // listen for requests :)
 const listener = app.listen(PORT, function () {
