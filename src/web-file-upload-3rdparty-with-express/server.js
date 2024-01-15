@@ -37,21 +37,18 @@ app.get("/", function (request, response) {
 // Custom File API endpoint for file upload and observe server-side
 app.post('/upload-single-file', upload.single('fileInput'), function (req, res, next) {
   try {
-    
-    // here retrieving informative fields against the file
+    // retrieving informative fields against the file
     const description = req.body.myFileDescr
     const fileCat = req.body.myFileCat
     const fileCatVisual = foodMap[fileCat]
 
-    // demo 1 - post a text file to httpbin.org/post endpoint
+    // TODO demo 1 - post a text file to httpbin.org/post endpoint
 
 
 
-    // demo 2 - since httpbin mirrors what we send,
-    // using WireMockCloud to simulate validating expected formData "schema" on 3rd-party
+    // TODO demo 2 - since httpbin mirrors what we send,
+    // TODO using WireMockCloud to simulate validating expected formData "schema" on 3rd-party
 
-
-    
 
     // req.file is the `file` file
     console.log(`svr msg - file descri "${description}" has saved on svr.`)
@@ -67,9 +64,6 @@ app.post('/upload-single-file', upload.single('fileInput'), function (req, res, 
     res.json({ message: "error - ", error })
   }
 })
-
-//TODO demo route for multi upload
-//app.post('/upload-multi-files',
 
 // listen for requests :)
 const listener = app.listen(PORT, function () {

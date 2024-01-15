@@ -34,9 +34,10 @@
           <th>Step</th>
           <th>Response</th>
         </tr>
+        <!-- table row for 1st form -->
         <tr>
           <td>
-            <h3>Alice's custom file uploading</h3>
+            <h3>Alice's custom file uploading - form 1</h3>
             <!-- note: action=endpoint is not set here but in client.js as a global instead -->
             <form id="fileForm" method="post" enctype="multipart/form-data">
 
@@ -59,6 +60,65 @@
             <p>
             <strong>Uploading status:</strong>
             <span id="statusMessage">🤷‍♂ Nothing's uploaded</span>
+          </p>
+        </td>
+        </tr>
+        <!-- below forms are added for attempt to parallel file uploading -->
+        <!-- TODO: '+' button that adds these HTML table row forms dynamically -->
+        <!-- table row for 2nd form -->
+        <tr>
+          <td>
+            <h3>Alice's custom file uploading - form 2</h3>
+            <!-- note: action=endpoint is not set here but in client.js as a global instead -->
+            <form id="fileForm2" method="post" enctype="multipart/form-data">
+
+              <label for="myFileDescr">Describe your file 2: </label>
+              <input type="text" id="myFileDescr" name="myFileDescr"/>
+
+              <label for="selectFileCat">Select a category for file 2: </label>
+              <select id="selectFileCat" name="selectFileCat">
+                <option value="vegetable">🥦Some veggies maybe?</option>
+                <option value="fruit">🍎Fru-u-u-uuuuit lalala</option>
+                <option value="protein" selected>💪Protein to be in shape</option>
+              </select>
+              <label for="fileInput">Select a file 2:</label>
+              <input type="file" id="fileInput" name="fileInput"/><br><br>
+              <button type="submit">Upload the file 2</button>
+            </form>
+          </td>
+          <td id="fileResponse2">
+            <p>
+            <strong>Uploading status 2:</strong>
+            <span id="statusMessage2">🤷‍♂ Nothing's uploaded 2</span>
+          </p>
+        </td>
+        </tr>
+        <!-- table row for 3rd form -->
+        <tr>
+          <td>
+            <h3>Alice's custom file uploading - form 3</h3>
+            <!-- note: action=endpoint is not set here but in client.js as a global instead -->
+            <form id="fileForm3" method="post" enctype="multipart/form-data">
+
+              <label for="myFileDescr">Describe your file 3: </label>
+              <input type="text" id="myFileDescr" name="myFileDescr"/>
+
+              <label for="selectFileCat">Select a category for file 3: </label>
+              <select id="selectFileCat" name="selectFileCat">
+                <option value="vegetable">🥦Some veggies maybe?</option>
+                <option value="fruit">🍎Fru-u-u-uuuuit lalala</option>
+                <option value="protein" selected>💪Protein to be in shape</option>
+              </select>
+              <label for="fileInput">Select a file 3:</label>
+              <input type="file" id="fileInput" name="fileInput"/><br><br>
+              <button type="submit">Upload the file 3</button>
+            </form>
+            <input type="button" value="SubmitBoth1+2+3" onclick="submitBoth()">
+          </td>
+          <td id="fileResponse3">
+            <p>
+            <strong>Uploading status 3:</strong>
+            <span id="statusMessage3">🤷‍♂ Nothing's uploaded 3</span>
           </p>
         </td>
         </tr>
