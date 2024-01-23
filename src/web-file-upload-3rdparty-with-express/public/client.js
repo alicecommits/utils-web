@@ -42,42 +42,34 @@ fileForm.onsubmit = async function (event) {
 
 
 // --------------------- MULTIFILE UPLOAD DEMO ----------------------------- //
-// TODO REWRITE submitBoth - INSTEAD OF THE FOR LOOP BELOW,
-// CODE THE COLLECTION OF EACH PARALLEL REQUEST
-// AWAIT FETCH BECOMES AWAIT sendFile
-// EVEN THOUGH THE UPLOAD URL IS CONSTANT - EG BELOW
-/*
-const ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // Array of ids
-const responses = await Promise.allSettled(
-	ids.map(async id => {
-		const res = await fetch(
-			`https://jsonplaceholder.typicode.com/posts/${id}`
-		); // Send request for each id
-	})
-);
-*/
-function submitBoth() {
+async function submitBoth() {
 
-  for (let i = 0; i < document.forms.length; i++) {
-    
-    const accessedForm = document.forms[i]
-    const formElts = document.getElementById(accessedForm.id).elements;
-    
-    const fileInputValue = formElts["fileInput"].value
-    const descrValue = formElts["myFileDescr"].value
-    const catValue = formElts["selectFileCat"].value
+  const results = await Promise.allSettled(
 
-    console.log(`form #${accessedForm.id} maps to ` +
-    `fileInput #${fileInputValue}, ` + 
-    `descr: '${descrValue}', ` + 
-    `category: ${catValue}`)
+    // tip: document.forms is an array-like object (HTMLCollection)
+    // it can be parsed into an actual Array using Array.from()
+    // each form of the array is then fed to the request to send
+    Array.from(document.forms, async form => {
 
-    //Send and await all promises, but since we care about settling of each file
-    // use Promise all settled
-    sendFile(DUMMY_URL_SINGLE, accessedForm, descrValue, catValue)
-    
-  }
-  
+      const formElts = document.getElementById(form.id).elements
+      //const fileInputValue = formElts["fileInput"].value
+      const descrValue = formElts["myFileDescr"].value
+      const catValue = formElts["selectFileCat"].value
+
+      const resp = await sendFile(
+        `http://localhost:3002/upload-test-route`, 
+        form, 
+        descrValue, 
+        catValue)
+      
+      return resp
+    })
+  )
+  // Promise settlement info
+  results.forEach((result) => { 
+    result.status === "fulfilled" ? 
+    console.log("fulfilled", result.value) : console.log("rejected", result.reason)
+  })
 }
 
 
@@ -86,11 +78,11 @@ async function sendFile(url, form, descrValue, catValue) {
 
   // prep formData for the request
   let formData = new FormData(form)
-  formData.set('myFileDescr', descrValue)
+  formData.set('myItemName', descrValue)
   formData.set('myFileCat', catValue)
 
   //send the file to the relevant upload endpoint <url>
-  const newFileResponse = await axios.post(url, formData, {
+  const axiosResp = await axios.post(url, formData, {
     
     //upload progress tracking
     onUploadProgress: progressEvent => {
@@ -99,12 +91,12 @@ async function sendFile(url, form, descrValue, catValue) {
       )
       console.log(`upload process: ${percentCompleted}%`)
     }
-
   })
+  //console log resp from svr into browser (client) console
+  console.log("sendFile exec - axiosResp from svr: ", axiosResp.data)
 
-  console.log("resp from svr: ", newFileResponse.data, " - find the file at: ", newFileResponse.data.url)
+  return axiosResp
 }
-
 
 
 /*
