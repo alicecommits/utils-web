@@ -15,12 +15,10 @@ const app = express()
 const PORT = 3002;
 //const PORT = process.env.PORT // to use other port than always 3002
 
-// objects in dropDownDataMaps file
-// act as local data stores for now
-// lookup will be based on the drop-down value
-// received from the client-side, based on user's selection
-dropDownDataMaps = require("./dropDownDataMaps")
-const foodMap = dropDownDataMaps.foodMap
+// dropDownDataMaps as local data stores for now
+// values are looked up based on userùs selection in form drop-downs
+dataMaps = require("./dataMaps")
+const foodMap = dataMaps.foodMap
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"))
@@ -58,6 +56,29 @@ app.post('/upload-single-file', upload.single('fileInput'), function (req, res, 
     data: req.file,
     description: description,
     fileCategory: fileCatVisual,
+    url: `http://localhost:${PORT}/${req.file.originalname}`})
+
+  } catch (error) {
+    res.json({ message: "error - ", error })
+  }
+})
+
+// to use to trial several hitting of the single upload routes
+app.post('/upload-test-route', upload.single('fileInput'), function (req, res, next) {
+  try {
+    // retrieving informative fields against the file
+    const descr = req.body.myFileDescr
+    const cat = req.body.myFileCat
+    // finding corresponding file cat in dataMaps
+    const catVisual = foodMap[cat]
+
+
+    console.log(`svr msg - file descri "${descr}" has saved on svr.`)
+    // response to send back to client (and to append to HTML UI TODO)
+    res.json({ message: "successful file upload!", 
+    data: req.file,
+    description: descr,
+    fileCategory: catVisual,
     url: `http://localhost:${PORT}/${req.file.originalname}`})
 
   } catch (error) {
