@@ -13,12 +13,11 @@ const UPLOAD_DIR = uploadModule.UPLOAD_DIR
 const app = express()
 
 const PORT = 3002;
-//const PORT = process.env.PORT // to use other port than always 3002
+//const PORT = process.env.PORT to use other port than 3002
 
-// dropDownDataMaps as local data stores for now
-// values are looked up based on userùs selection in form drop-downs
-dataMaps = require("./dataMaps")
-const foodMap = dataMaps.foodMap
+// values are looked up based on user's selection in drop down in UI
+constObjectDemo = require("./constObjectDemo")
+const foodObj = constObjectDemo.foodObj
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"))
@@ -38,7 +37,7 @@ app.post('/upload-single-file', upload.single('fileInput'), function (req, res, 
     // retrieving informative fields against the file
     const description = req.body.myFileDescr
     const fileCat = req.body.myFileCat
-    const fileCatVisual = foodMap[fileCat]
+    const fileCatVisual = foodObj[fileCat]
 
     // TODO demo 1 - post a text file to httpbin.org/post endpoint
 
@@ -69,12 +68,12 @@ app.post('/upload-test-route', upload.single('fileInput'), function (req, res, n
     // retrieving informative fields against the file
     const descr = req.body.myFileDescr
     const cat = req.body.myFileCat
-    // finding corresponding file cat in dataMaps
-    const catVisual = foodMap[cat]
+    // finding corresponding file cat in foodObj
+    const catVisual = foodObj[cat]
 
 
     console.log(`svr msg - file descri "${descr}" has saved on svr.`)
-    // response to send back to client (and to append to HTML UI TODO)
+    // response to send back to client
     res.json({ message: "successful file upload!", 
     data: req.file,
     description: descr,
