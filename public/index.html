@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Microservices UI Platform</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>My Microservices Application</h1>
+      <nav>
+        <!-- Navigation items -->
+      </nav>
+    </header>
+
+    <main>
+      <section class="widget-container">
+        <h2>Modal Widget Demo</h2>
+
+        <!-- Modal trigger button -->
+        <button
+          id="openModalBtn"
+          class="btn btn-primary"
+          data-modal-type="info"
+          data-modal-size="medium"
+          aria-haspopup="dialog"
+        >
+          Open Example Modal
+        </button>
+
+        <!-- Additional trigger buttons with different configurations -->
+        <button
+          id="openConfigModalBtn"
+          class="btn btn-secondary"
+          data-modal-type="configuration"
+          data-modal-size="large"
+          aria-haspopup="dialog"
+        >
+          Open Configuration Modal
+        </button>
+
+        <button
+          id="openAlertModalBtn"
+          class="btn btn-warning"
+          data-modal-type="alert"
+          data-modal-size="small"
+          aria-haspopup="dialog"
+        >
+          Open Alert Modal
+        </button>
+      </section>
+
+      <!-- This container will be used to mount the modal -->
+      <div id="modal-container"></div>
+    </main>
+
+    <script src="index.js" type="module"></script>
+  </body>
+</html>
